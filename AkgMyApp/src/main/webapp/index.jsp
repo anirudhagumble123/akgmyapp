@@ -1,87 +1,75 @@
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-
+<%@ page import="java.sql.*"%>
 <html>
+
+<h2>Search Employee!!!</h2>
+
 <head>
-	<title>Search user</title>
+<title>Search</title>
+<%@page import="java.sql.*"%>
 </head>
 <body>
-<%
-	String keyword = "";
-	if(request.getParameter("txtKeyword") != null) {
-		keyword = request.getParameter("txtKeyword");
-	}
-%>
-
-	<form name="frmSearch" method="get" action="index.jsp">
-	  <table width="599" border="1">
-	    <tr>
-	      <th>Keyword
-	      <input name="txtKeyword" type="text" id="txtKeyword" value="<%=keyword%>">
-	      <input type="submit" value="Search"></th>
-	    </tr>
-	  </table>
-	</form>
-
 	<%
-	Connection connect = null;
-	Statement s = null;
+    Connection con;
+    Statement st;
+    try
+    {
+        Class.forName("com.mysql.jdbc.Driver");
+         con=(Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/learn","root","anirudha");
+        st=con.createStatement();
+        ResultSet rs=st.executeQuery("select * from user;");
+    %>
+    
+    
+	<br><br><br>
 	
-	try {
-		Class.forusername("com.mysql.jdbc.Driver");
-		
-		connect =  DriverManager.getConnection("jdbc:mysql://localhost/mydatabase" +
-				"?user=root&password=anirudha");
-		
-		s = connect.createStatement();
-		
-		String sql = "SELECT * FROM  user WHERE username like '%" +  keyword + "%' " +
-		" ORDER BY id ASC";
-		
-		System.out.println(sql);
-		
-		ResultSet rec = s.executeQuery(sql);
-		%>
-		<table width="600" border="1">
-		  <tr>
-		    <th width="91"> <div align="center">CustomerID </div></th>
-		    <th width="98"> <div align="center">username </div></th>
-		    <th width="198"> <div align="center">Email </div></th>
-		    <th width="97"> <div align="center">CountryCode </div></th>
-		    <th width="59"> <div align="center">Budget </div></th>
-		    <th width="71"> <div align="center">Used </div></th>
-		  </tr>	
-			<%while((rec!=null) && (rec.next())) { %>
-				  <tr>
-				    <td><div align="center"><%=rec.getString("CustomerID")%></div></td>
-				    <td><%=rec.getString("username")%></td>
-				    <td><%=rec.getString("Email")%></td>
-				    <td><div align="center"><%=rec.getString("CountryCode")%></div></td>
-				    <td align="right"><%=rec.getFloat("Budget")%></td>
-				    <td align="right"><%=rec.getFloat("Used")%></td>
-				  </tr>
-	       	<%}%>
-	  	</table>      
-	    <%	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			out.println(e.getMessage());
-			e.printStackTrace();
-		}
-	
-		try {
-			if(s!=null){
-				s.close();
-				connect.close();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			out.println(e.getMessage());
-			e.printStackTrace();
-		}
-	%>
+	<table border=1 align=center style="text-align: center">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>USERNAME</th>
+				<th>AGE</th>
+				<th>COUNTRY</th>
+				<th>EMAIL</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%while(rs.next())
+        {
+            %>
+			<tr>
+				<td><%=rs.getInt("id") %></td>
+				<td><%=rs.getString("username") %></td>
+				<td><%=rs.getString("age") %></td>
+				<td><%=rs.getString("country") %></td>
+				<td><%=rs.getString("email") %></td>
+			</tr>
+			<%}%>
+		</tbody>
+	</table>
+	<br>
+	<%}
+    catch(Exception e){
+        out.print(e.getMessage());%><br>
+	<%
+    }
+  
+    %>
 </body>
+</html>
+
+
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
 </html>

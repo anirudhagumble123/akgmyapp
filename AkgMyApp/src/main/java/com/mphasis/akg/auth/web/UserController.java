@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
+	
+	
+	
     @Autowired
     private UserService userService;
 
@@ -59,4 +62,10 @@ public class UserController {
     public String welcome(Model model) {
         return "welcome";
     }
+    
+    @GetMapping("/index")
+    public String index(Model model) {
+        return "index";
+    }
+    
 }
