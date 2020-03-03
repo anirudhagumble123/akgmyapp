@@ -30,13 +30,13 @@
     </div>
 
     <div class="container">
-      <form method="POST" action="${contextPath}/login" class="form-signin">
+      <form method="POST" action="${contextPath}/login" class="form-signin" autocomplete="off">
         <h2 class="form-heading">Log in</h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
             <span>${message}</span>
             
-            <spring:message code="label.userName" />
+             <spring:message code="label.userName" /> 
             <input name="username" type="text" class="form-control" placeholder="Username"
                    autofocus="true"/>
                    
@@ -46,7 +46,8 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 			<spring:message code="label.submit" var="labelSubmit"></spring:message>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" >Log In</button>
+			<input type="Submit" class="btn btn-lg btn-primary btn-block" value="Log In"/>
+            <!-- <button class="btn btn-lg btn-primary btn-block" type="submit" >Log In</button> -->
             <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
         </div>   
       </form>
