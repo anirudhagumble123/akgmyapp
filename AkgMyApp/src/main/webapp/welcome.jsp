@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Create an account</title>
+    <title>Welcome</title>
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +25,8 @@
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2><br>
     	
     </c:if>
-    	<a href="${contextPath}/index">Search Here</a>
+    	<a href="${contextPath}/index">Search Here</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	<a href="${contextPath}/document">Add Document</a>
     
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

@@ -1,8 +1,12 @@
 package com.mphasis.akg.auth.web;
 
+
+import com.mphasis.akg.auth.model.Document;
 import com.mphasis.akg.auth.model.User;
+
 import com.mphasis.akg.auth.service.SecurityService;
 import com.mphasis.akg.auth.service.UserService;
+import com.mphasis.akg.auth.validator.DocumentValidator;
 import com.mphasis.akg.auth.validator.UserValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,65 +17,95 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private SecurityService securityService;
+
+	@Autowired
+	private UserValidator userValidator;
 	
 	
+	@Autowired
+	private DocumentValidator documentValidator;
 	
-    @Autowired
-    private UserService userService;
+	@GetMapping("/registration")
+	public String registration(Model model) {
+		model.addAttribute("userForm", new User());
 
-    @Autowired
-    private SecurityService securityService;
+		return "registration";
+	}
 
-    @Autowired
-    private UserValidator userValidator;
+	@PostMapping("/registration")
+	public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+		userValidator.validate(userForm, bindingResult);
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+		if (bindingResult.hasErrors()) {
+			return "registration";
+		}
 
-        return "registration";
-    }
+		userService.save(userForm);
 
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
+		securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-
-        userService.save(userForm);
-
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:/welcome";
-    }
+		return "redirect:/welcome";
+	}
 
 	
+	  
 	/*
-	 * @RequestMapping(value = { "/", "/login" }) public String staticResource(Model
-	 * model) { return "login"; }
+	 * @RequestMapping(value = { "/", "/login" }) public String staticResource
+	 * (Model model) { return "login"; }
 	 */
-    
-    @RequestMapping(value = { "/", "/login" }) 
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+	  
+	  @RequestMapping(value = { "/", "/login" }) public String login(Model model,
+	  String error, String logout) { if (error != null) model.addAttribute("error",
+	  "Your username and password is invalid.");
+	  
+	  if (logout != null) model.addAttribute("message",
+	  "You have been logged out successfully.");
+	  
+	  return "login"; }
+	 
+	
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+	@GetMapping({ "/", "/welcome" })
+	public String welcome(Model model) {
+		return "welcome";
+	}
 
-        return "login";
-    }
+	@GetMapping("/index")
+	public String index(Model model) {
+		return "index";
+	}
 
-    @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
-    }
-    
-    @GetMapping("/index")
-    public String index(Model model) {
-        return "index";
-    }
-    
+	
+	  @GetMapping("/document") 
+	  public String document(Model model) 
+	  {
+		  model.addAttribute("documentForm", new Document());
+
+	  return "document"; 
+	  }
+
+	  
+		@PostMapping("/document")
+		public String document(@ModelAttribute("documentForm") Document documentForm, BindingResult bindingResult) 
+		{
+			documentValidator.validate(documentForm, bindingResult);
+
+			if (bindingResult.hasErrors())
+			{
+				return "document";
+			}
+
+		else
+		{
+
+			return "redirect:/welcome";
+		}
+		}
+		
 }

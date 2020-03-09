@@ -1,4 +1,15 @@
-<%@ page import="java.sql.*"%>
+<html>
+
+<body>
+
+<h2><b>Documents will be searched here</b></h2>
+
+</body>
+
+</html>
+
+
+<%-- <%@ page import="java.sql.*"%>
 <html>
 
 <h2>Search Employee!!!</h2>
@@ -72,4 +83,4 @@ $(document).ready(function(){
 
 
 
-</html>
+</html> --%>
