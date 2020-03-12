@@ -27,9 +27,9 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 	
-	
 	@Autowired
 	private DocumentValidator documentValidator;
+	
 	
 	@GetMapping("/registration")
 	public String registration(Model model) {
@@ -82,7 +82,11 @@ public class UserController {
 	}
 
 	
-	  @GetMapping("/document") 
+	/*
+	 * @GetMapping({"/", "/document"})
+	 */
+	
+	  @GetMapping("/document")
 	  public String document(Model model) 
 	  {
 		  model.addAttribute("documentForm", new Document());
@@ -101,11 +105,8 @@ public class UserController {
 				return "document";
 			}
 
-		else
-		{
-
 			return "redirect:/welcome";
 		}
-		}
+		
 		
 }

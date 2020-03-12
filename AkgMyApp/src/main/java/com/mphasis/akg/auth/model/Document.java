@@ -19,6 +19,10 @@ public class Document {
     private String country;
     
     private String documentdate;
+    
+    
+    
+    
 
 	public Long getId() {
 		return id;

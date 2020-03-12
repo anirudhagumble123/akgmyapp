@@ -27,10 +27,12 @@ public class DocumentValidator implements Validator
 	            errors.rejectValue("documentname", "Size.documentForm.documentname");
 	        }
 		
-	        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "documenttype", "NotEmpty");
-	        if (document.getDocumenttype().length() < 6 || document.getDocumenttype().length() > 32) {
-	            errors.rejectValue("documenttype", "Size.documentForm.documenttype");
-	        }
+		/*
+		 * ValidationUtils.rejectIfEmptyOrWhitespace(errors, "documenttype",
+		 * "NotEmpty"); if (document.getDocumenttype().length() < 6 ||
+		 * document.getDocumenttype().length() > 32) {
+		 * errors.rejectValue("documenttype", "Size.documentForm.documenttype"); }
+		 */
 	        
 	}
 
