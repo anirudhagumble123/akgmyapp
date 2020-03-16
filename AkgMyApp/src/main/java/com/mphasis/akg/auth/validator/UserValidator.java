@@ -4,6 +4,7 @@ import com.mphasis.akg.auth.model.User;
 import com.mphasis.akg.auth.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

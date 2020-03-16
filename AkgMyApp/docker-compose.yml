@@ -5,7 +5,7 @@ services:
     image: mysql/mysql-server:5.7
     environment:
       MYSQL_DATABASE: learn
-      MYSQL_ROOT_PASSWORD: anirudha
+      MYSQL_ROOT_PASSWORD: aniruddha
       MYSQL_ROOT_HOST: '%'
     ports:
     - "3306:3306"

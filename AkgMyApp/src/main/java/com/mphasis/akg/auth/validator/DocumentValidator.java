@@ -11,10 +11,13 @@ import com.mphasis.akg.auth.model.Document;
 @Component
 public class DocumentValidator implements Validator 
 {
-
+	/*
+	 * @Autowired private DocumentService documentService;
+	 */
+	
 	@Override
-	public boolean supports(Class<?> clazz) {
-		 return Document.class.equals(clazz);
+	public boolean supports(Class<?> aClass) {
+		 return Document.class.equals(aClass);
 		
 	}
 
@@ -22,11 +25,16 @@ public class DocumentValidator implements Validator
 	public void validate(Object o, Errors errors) {
 		Document document = (Document) o;
 		
-		 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "documentname", "NotEmpty");
-	        if (document.getDocumentname().length() < 6 || document.getDocumentname().length() > 32) {
-	            errors.rejectValue("documentname", "Size.documentForm.documentname");
-	        }
-		
+		/*
+		 * ValidationUtils.rejectIfEmptyOrWhitespace(errors, "documentname",
+		 * "NotEmpty"); if (document.getDocumentname().length() < 6 ||
+		 * document.getDocumentname().length() > 32) {
+		 * errors.rejectValue("documentname", "Size.documentForm.documentname"); }
+		 */
+		/*
+		 * if (documentService.findByDocumentname(document.getDocumentname()) != null) {
+		 * errors.rejectValue("username", "Duplicate.userForm.username"); }
+		 */
 		/*
 		 * ValidationUtils.rejectIfEmptyOrWhitespace(errors, "documenttype",
 		 * "NotEmpty"); if (document.getDocumenttype().length() < 6 ||
